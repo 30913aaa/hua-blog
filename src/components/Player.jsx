@@ -209,7 +209,7 @@ export default function Player() {
       {isCollapsed && (
         <div onClick={toggleCollapse} style={{ height: "64px", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
           <div style={{ fontSize: "28px", color: isDark ? "#60a5fa" : "#3b82f6" }}>
-            {isPlaying ? "♪" : "Play"}
+            {isPlaying ? "♪" : "▷"}
           </div>
         </div>
       )}
