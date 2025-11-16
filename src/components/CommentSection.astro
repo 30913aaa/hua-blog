@@ -1,0 +1,33 @@
+---
+// CommentSection.astro
+// 公開留言區組件 (Giscus)
+const { repo, repoId, category, categoryId, theme = "light", lang = "zh-CN" } = Astro.props;
+---
+
+<div class="mt-10 onload-animation">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="30913aaa/hua-blog"
+    data-repo-id="R_kgDOQVHZCg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQVHZCs4Cxwu3"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-TW"
+    data-loading="lazy"
+    data-anonymous="1"      <!-- 這一行一定要加！允許匿名留言 -->
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
+
+<style>
+  .giscus-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+</style>
