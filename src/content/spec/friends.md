@@ -1,10 +1,9 @@
 ---
 title: friends
-description: 團隊成員介紹
+description: 
 ---
 
-# friends
-
+<!-- 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
       integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,7 +12,6 @@ description: 團隊成員介紹
 
 <div class="team-container">
 
-  <!-- Member: WH🐳 (Whale 120) -->
   <div class="member-hcard">
     <div class="avatar-large">
       <img src="https://em-content.zobj.net/source/apple/391/whale_1f40b.png" alt="WH🐳">
@@ -38,13 +36,12 @@ description: 團隊成員介紹
     </div>
   </div>
 
-  <!-- 其餘成員（chilin.h、若米、viivie、Aukro）結構相同，複製貼上即可 -->
-  <!-- 省略範例，見下方完整說明 -->
+
 
 </div>
 
 <style>
-/* ==================== 深色模式核心 ==================== */
+
 :root {
   --bg-card: rgba(42, 52, 65, 0.7);
   --bg-card-hover: rgba(50, 60, 75, 0.8);
@@ -360,3 +357,4 @@ if (saved === 'dark' || (!saved && prefersDark)) {
   if (icon) icon.classList.replace('fa-moon', 'fa-sun');
 }
 </script>
+-->

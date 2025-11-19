@@ -1,29 +1,104 @@
 ---
-import { getEntry, render } from "astro:content";
-import Markdown from "@components/misc/Markdown.astro";
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
-import MainGridLayout from "../layouts/MainGridLayout.astro";
-import Comment from "../components/Comment.jsx";
-
-// 讀取 spec/friends.md（你可以改成其他名稱）
-const friendsPost = await getEntry("spec", "friends");
+import { getCollection } from 'astro:content';
+import MainGridLayout from '../layouts/MainGridLayout.astro';
+import Comment from '../components/Comment.jsx';
+// 取得 friends content
+const friendsCollection = await getCollection('spec');
+const friendsPost = friendsCollection.find(post => post.slug === 'friends');
 
 if (!friendsPost) {
-  throw new Error("Friends page content not found");
+  throw new Error('Friends page content not found');
 }
 
-const { Content } = await render(friendsPost);
+const Content = friendsPost.body;
+
+// 友鏈資料
+const items = [
+  { title: "所有奇迹的始发点", imgurl: "/friends-images/aulypc.png", desc: "所有奇迹的始发点", siteurl: "https://blog.aulypc0x0.online", tags: [] },
+  { title: "珊星雪の小屋", imgurl: "/friends-images/shanxue.png", desc: "银光渐深星无灭，古杉月空探花雪。浮尘荡风埃不落，杨柳春晨与露飞", siteurl: "https://timeline.aulypc0x0.online/friends/#珊星雪の小屋", tags: [] },
+  { title: "CottonCZ", imgurl: "/friends-images/cottoncz.png", desc: "Just For Fun!", siteurl: "https://timeline.aulypc0x0.online/friends/#CottonCZ", tags: [] },
+  { title: "咸鱼小窝", imgurl: "/friends-images/xianyu.png", desc: "我们终将会在没有黑暗的地方相遇", siteurl: "https://timeline.aulypc0x0.online/friends/#咸鱼小窝", tags: [] },
+  { title: "梦落の小屋", imgurl: "/friends-images/mengluo.png", desc: "因为不可能，所以才值得相信", siteurl: "https://timeline.aulypc0x0.online/friends/#夢落の小屋", tags: [] },
+  { title: "HkrA", imgurl: "/friends-images/hkra.png", desc: "（<ゝω・）☆~", siteurl: "https://timeline.aulypc0x0.online/friends/#HkrA", tags: [] },
+];
+
+
 ---
 
-<MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
+<MainGridLayout title="Friends" description="我的朋友 / 推薦站點">
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-9 py-6 relative w-full">
-      <Markdown class="mt-2">
-        <Content />
-      </Markdown>
+
+      <!-- 新增文字區塊 -->
+      <div class="my-10">
+  <h1 class="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100">
+    友鏈
+  </h1>
+  <div class="mt-3 w-24 h-1 bg-[var(--primary)] rounded-full"></div>
+  <p class="mt-6 text-base text-gray-600 dark:text-gray-400">
+    一些很酷的站點，隨機排序
+  </p>
+</div>
+
+      <!-- 友鏈列表 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 my-4" id="friends-list">
+        {items.map(item => (
+          <div class="friend-card flex items-stretch gap-4 rounded-[var(--radius-large)] shadow-sm hover:shadow-md transition-all duration-200 h-28">
+            <div class="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-900">
+              <img src={item.imgurl} alt={item.title} class="w-full h-full object-cover" />
+            </div>
+            <div class="grow flex flex-col justify-between">
+              <div>
+                <div class="font-bold text-lg text-neutral-900 dark:text-neutral-100 mb-1">{item.title}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">{item.desc}</div>
+              </div>
+              {item.tags && item.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {item.tags.map(tag => (
+                    <span class="px-2 py-0.5 text-xs rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <a href={item.siteurl} target="_blank" rel="noopener noreferrer" class="flex btn-regular w-[3.25rem] rounded-lg bg-[var(--enter-btn-bg)] hover:bg-[var(--enter-btn-bg-hover)] active:bg-[var(--enter-btn-bg-active)] active:scale-95 justify-center items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="transition text-[var(--primary)] text-4xl iconify" width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12.6 12L8.7 8.1q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.6 4.6q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.6 4.6q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7z"></path>
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+<!-- 我的站點資訊（靠左對齊，程式碼風格） -->
+      <div class="mt-16">
+        <pre class="text-sm font-mono bg-gray-100 dark:bg-zinc-900 rounded-xl px-6 py-5 overflow-x-auto border border-gray-200 dark:border-zinc-800">
+<code class="text-gray-800 dark:text-gray-200">title:  <span class="text-sky-600 dark:text-sky-400">"XXのBlog"</span>
+imgurl: <span class="text-purple-600 dark:text-purple-400">"https://xx.webp"</span>
+desc:   <span class="text-green-600 dark:text-green-400">"xxx"</span>
+siteurl:<span class="text-orange-600 dark:text-orange-400">"https://xxx"</span></code></pre>
+
+        <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+          ↑ 互鏈請參考上方資訊，在下方留言即可
+        </p>
+      </div>
+      <!-- 渲染 Markdown -->
+      <div class="mt-2" set:html={Content}></div>
     </div>
+    
   </div>
 
-  <Comment client:load />
+  <!-- 隨機排列 JS -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('friends-list');
+      if (!container) return;
+      const cards = Array.from(container.children);
+      for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+      }
+      cards.forEach(card => container.appendChild(card));
+    });
+    
+  </script>
+<Comment client:load />
 </MainGridLayout>

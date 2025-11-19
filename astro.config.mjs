@@ -24,7 +24,7 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 import react from '@astrojs/react'; // 引入 React 集成
-
+import remarkImageWidth from './src/plugins/remark-image-width.js'
 
 // https://astro.build/config
 export default defineConfig({
@@ -116,6 +116,7 @@ export default defineConfig({
 			parseDirectiveNode,
 		],
 		rehypePlugins: [
+			remarkImageWidth,
 			rehypeKatex,
 			rehypeSlug,
 			[
